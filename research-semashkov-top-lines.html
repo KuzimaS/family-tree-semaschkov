@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Проверка верхних линий Семашковых</title>
+<style>
+  :root {
+    --paper: #fbf6ea;
+    --ink: #24382f;
+    --muted: #6d604f;
+    --line: #d9c6a7;
+    --green: #315f4d;
+    --red: #8b263d;
+    --amber: #9b6a24;
+  }
+  body {
+    margin: 0;
+    background: #efe9dc;
+    color: var(--ink);
+    font: 18px/1.55 Georgia, "Times New Roman", serif;
+  }
+  main {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 56px 32px 80px;
+  }
+  h1, h2, h3 { line-height: 1.1; margin: 0; }
+  h1 { font-size: clamp(38px, 5vw, 68px); }
+  h2 { font-size: 30px; margin-top: 42px; }
+  h3 { font-size: 22px; margin-top: 26px; }
+  p { margin: 12px 0; }
+  a { color: var(--red); }
+  .lead { color: var(--muted); font-size: 20px; max-width: 860px; }
+  .panel {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 28px;
+    margin-top: 26px;
+    box-shadow: 0 14px 34px rgba(36, 28, 18, .08);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+  }
+  .card {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 20px;
+    background: rgba(255, 250, 240, .72);
+  }
+  .tag {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 4px 10px;
+    margin-bottom: 10px;
+    font: 700 13px/1.2 system-ui, sans-serif;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+  }
+  .ok { background: rgba(49, 95, 77, .13); color: var(--green); }
+  .wait { background: rgba(155, 106, 36, .14); color: var(--amber); }
+  .stop { background: rgba(139, 38, 61, .12); color: var(--red); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    font-size: 16px;
+  }
+  th, td {
+    border-bottom: 1px solid var(--line);
+    padding: 12px 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    color: var(--green);
+    font: 700 13px/1.2 system-ui, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+  .note {
+    border-left: 4px solid var(--amber);
+    padding-left: 16px;
+    color: var(--muted);
+  }
+  .small { color: var(--muted); font-size: 15px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Проверка верхних линий Семашковых</h1>
+  <p class="lead">Рабочий файл для просмотра. В основное древо ничего не добавлено: ниже только подтвержденная база, найденные кандидаты и список проверок, которые нужны, чтобы не привязать однофамильцев ошибочно.</p>
+
+  <section class="panel">
+    <h2>Что подтверждено сейчас</h2>
+    <div class="grid">
+      <article class="card">
+        <span class="tag ok">подтверждено в текущем Excel</span>
+        <h3>Семашков Анатолий Васильевич</h3>
+        <p>Верхняя корневая карточка. Муж Семашковой Ольги Константиновны. Отец Семашкова Сергея Анатольевича и Семашкова Антона Анатольевича.</p>
+        <p class="small">Источник: локальный файл «Древо с фото_v17_checked.xlsx», листы «Финальное древо», «Связи», «Поколения».</p>
+      </article>
+      <article class="card">
+        <span class="tag ok">подтверждено в текущем Excel</span>
+        <h3>Семашкова Ольга Константиновна</h3>
+        <p>Верхняя корневая карточка. Жена Семашкова Анатолия Васильевича. Мать Семашкова Сергея Анатольевича и Семашкова Антона Анатольевича.</p>
+        <p class="small">Источник: локальный файл «Древо с фото_v17_checked.xlsx», листы «Финальное древо», «Связи», «Поколения».</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Что логически следует из отчеств</h2>
+    <table>
+      <thead>
+        <tr><th>Линия</th><th>Что можно предположить</th><th>Статус</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Отец Анатолия</td>
+          <td>Имя отца должно быть Василий, потому что отчество Анатолия — Васильевич.</td>
+          <td><span class="tag wait">недостаточно</span><br>Фамилия, годы, место рождения и мать не подтверждены внешним документом.</td>
+        </tr>
+        <tr>
+          <td>Отец Ольги</td>
+          <td>Имя отца должно быть Константин, потому что отчество Ольги — Константиновна.</td>
+          <td><span class="tag wait">недостаточно</span><br>Девичья фамилия Ольги, годы и место рождения не подтверждены внешним документом.</td>
+        </tr>
+        <tr>
+          <td>Братья/сестры верхней пары</td>
+          <td>Искать можно только после привязки к месту и годам: однофамильцы без документа о родстве не считаются.</td>
+          <td><span class="tag stop">не добавлять</span><br>Пока нет подтверждающих связей.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <h2>Найденные внешние кандидаты, не подтверждены</h2>
+    <p class="note">Эти записи полезны как направления поиска, но сейчас не доказывают родство с Анатолием Васильевичем или Ольгой Константиновной. В основное древо их добавлять нельзя.</p>
+    <table>
+      <thead>
+        <tr><th>Кандидат/след</th><th>Что найдено</th><th>Почему не подтверждено</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Семашков Василий Михайлович</td>
+          <td>Familio показывает запись: 1898, село Летниково, Бузулукский уезд, Самарская губерния. Это совпадает только по имени возможного отца Анатолия.</td>
+          <td>Нет связки «сын Анатолий Васильевич», нет документов ЗАГС/метрики/домовой книги. Источник: <a href="https://familio.org/surnames/bd4812f3-59fe-4a24-bf2a-87f408e9a5dc">Familio, фамилия Семашков</a>.</td>
+        </tr>
+        <tr>
+          <td>Семашков Михаил Иванович</td>
+          <td>Книга памяти Оренбургской области: 1889 г.р., колхозник, с. Зерикла, Абдулинский район; репрессирован в 1937, реабилитирован в 1990.</td>
+          <td>Может быть однофамилец или дальняя ветка, но нет документа, связывающего его с Анатолием/Ольгой. Источники: <a href="https://bessmertnybarak.ru/books/kp_orenburg_tom_1/page-286/">Бессмертный барак, том 1, стр. 286</a>, <a href="https://www.poslednyadres.ru/order_sign/13394/?params%5Bdir%5D=d&params%5Blst%5D=products&params%5Bsort%5D=LIVE_PLACE">Последний адрес</a>.</td>
+        </tr>
+        <tr>
+          <td>Семашкова Агафья Георгиевна</td>
+          <td>Открытый список выводит такую запись в категории «Оренбургская обл.» рядом с другими Семашковыми.</td>
+          <td>Нет подтверждения, что это мать/родственница Семашкова Анатолия Васильевича. Источник: <a href="https://ru.openlist.wiki/index.php?pagefrom=%D0%A1%D0%B5%D0%BC%D0%B0%D1%88%D0%BA%D0%BE%D0%B2+%D0%9C%D0%B8%D1%85%D0%B0%D0%B8%D0%BB+%D0%98%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2%D0%B8%D1%87+%281889%29&title=%D0%9A%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D1%8F%3A%D0%9E%D1%80%D0%B5%D0%BD%D0%B1%D1%83%D1%80%D0%B3%D1%81%D0%BA%D0%B0%D1%8F_%D0%BE%D0%B1%D0%BB.">Открытый список, категория Оренбургская обл.</a>.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <h2>Что нужно для следующего уверенного шага</h2>
+    <ol>
+      <li>Год и место рождения Семашкова Анатолия Васильевича.</li>
+      <li>Год и место рождения Семашковой Ольги Константиновны, а также ее девичья фамилия.</li>
+      <li>Любой документ с родителями: свидетельство о рождении, запись ЗАГС, метрика, домовая книга, военный билет, пенсионное/трудовая книжка с местом рождения.</li>
+      <li>Если линия действительно Оренбургская/Бузулукская: проверить метрические книги/ЗАГС по Летниково, Зерикле, Абдулинскому району и близким населенным пунктам.</li>
+    </ol>
+  </section>
+
+  <p class="small">Дата проверки: 14.06.2026. Правило внесения в основное древо: только документальная связка человек → родитель/ребенок/супруг, либо явное семейное подтверждение от владельца дерева.</p>
+</main>
+</body>
+</html>

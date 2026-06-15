@@ -941,6 +941,9 @@ const relationshipRouteTuning = {
     splitParentPaths: true,
     cleanLaneParentId: 'P003',
     cleanLaneY: 2580,
+    extraCleanParentRoutes: [
+      { parentId: 'P013', laneY: 2685, childPortOffset: -70 },
+    ],
     jumps: [
       { axis: 'horizontal', x: 3485, y: 2580, r: 54, side: -1 },
     ],
@@ -1406,17 +1409,26 @@ function familyConnectorPaths(rel) {
       return paths.filter(Boolean);
     }
     if (routeTuning.cleanLaneParentId) {
-      const parent = parents.find(item => item.id === routeTuning.cleanLaneParentId);
-      if (parent) {
+      const addCleanLaneRoute = (parentId, options = {}) => {
+        const parent = parents.find(item => item.id === parentId);
+        if (!parent) return;
         const port = cardBottomPort(parent, rel);
-        const laneY = Number.isFinite(routeTuning.cleanLaneY) ? routeTuning.cleanLaneY : joinY;
-        const direction = childHub.x >= port.x ? 1 : -1;
-        const jumpsForLane = (Array.isArray(routeTuning.jumps) ? routeTuning.jumps : [])
+        const laneY = Number.isFinite(options.laneY)
+          ? options.laneY
+          : (Number.isFinite(routeTuning.cleanLaneY) ? routeTuning.cleanLaneY : joinY);
+        const childPortOffset = Number.isFinite(options.childPortOffset) ? options.childPortOffset : 0;
+        const targetTop = { x: children[0].centerX + childPortOffset, y: children[0].y };
+        const horizontalTarget = { x: targetTop.x, y: laneY };
+        const direction = horizontalTarget.x >= port.x ? 1 : -1;
+        const routeJumps = Array.isArray(options.jumps)
+          ? options.jumps
+          : (Array.isArray(routeTuning.jumps) ? routeTuning.jumps : []);
+        const jumpsForLane = routeJumps
           .filter(point => point.axis === 'horizontal')
           .filter(point => Math.abs(point.y - laneY) < 1)
           .filter(point => {
-            const left = Math.min(port.x, childHub.x);
-            const right = Math.max(port.x, childHub.x);
+            const left = Math.min(port.x, horizontalTarget.x);
+            const right = Math.max(port.x, horizontalTarget.x);
             return point.x > left + 24 && point.x < right - 24;
           })
           .sort((a, b) => direction > 0 ? a.x - b.x : b.x - a.x);
@@ -1439,13 +1451,22 @@ function familyConnectorPaths(rel) {
           });
           paths.push(polylinePath([
             segmentStart,
-            { x: childHub.x, y: laneY },
-            childHub,
+            horizontalTarget,
           ]));
         } else {
-          paths.push(polylinePath([segmentStart, laneStart, { x: childHub.x, y: laneY }, childHub]));
+          paths.push(polylinePath([segmentStart, laneStart, horizontalTarget]));
         }
-        paths.push(polylinePath([childHub, cardTop(children[0])]));
+        paths.push(polylinePath([horizontalTarget, targetTop]));
+      };
+      addCleanLaneRoute(routeTuning.cleanLaneParentId, {
+        laneY: routeTuning.cleanLaneY,
+        jumps: routeTuning.jumps,
+      });
+      const extraRoutes = Array.isArray(routeTuning.extraCleanParentRoutes)
+        ? routeTuning.extraCleanParentRoutes
+        : [];
+      extraRoutes.forEach(route => addCleanLaneRoute(route.parentId, route));
+      if (paths.length) {
         return paths.filter(Boolean);
       }
     }
